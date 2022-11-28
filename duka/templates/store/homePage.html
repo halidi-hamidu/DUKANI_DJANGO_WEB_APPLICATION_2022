@@ -1,0 +1,218 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %} Dashboard{% endblock %}
+{% block content %}
+{% if get_all_user_authorizations.view_dashboard  and get_all_user_authorizations.manage_sales %}
+
+
+
+
+<div class="container-fluid" id="container-wrapper">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="./">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
+  </div>
+
+  <div class="row mb-3">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1"><code><mark class="bg-success px-2">{{today}}</mark></code>  Sales</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{today_sales_sum}} Tsh/=</div>
+              <!-- <div class="mt-2 mb-0 text-muted text-xs">
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                <span>Ago</span>
+              </div> -->
+            </div>
+            <div class="col-auto">
+              <i class="fas fas fa-money-check-alt fa-2x text-primary"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Earnings (Annual) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1"><code><mark class="bg-success px-2">{{today}}</mark></code>  Expenditures </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{today_emergence_cost_sum}} Tsh/=</div>
+              <!-- <div class="mt-2 mb-0 text-muted text-xs">
+                <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
+                <span>Since last years</span>
+              </div> -->
+            </div>
+            <div class="col-auto">
+              <i class="fas fas fa-money-check-alt fa-2x text-success"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- New User Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1"><code><mark class="bg-success px-2">{{current_month}}</mark></code> Sales</div>
+              <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{current_month_current_year_sales_sum }}  Tsh/=</div>
+              <!-- <div class="mt-2 mb-0 text-muted text-xs">
+                <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 20.4%</span>
+                <span>Since last month</span>
+              </div> -->
+            </div>
+            <div class="col-auto">
+              <i class="fas fas fa-money-check-alt fa-2x text-info"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1"><code><mark class="bg-success px-2">{{current_year}}</mark></code> Sales</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{current_year_sales_sum}} Tsh/=</div>
+              <!-- <div class="mt-2 mb-0 text-muted text-xs">
+                <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+                <span>ago</span>
+              </div> -->
+            </div>
+            <div class="col-auto">
+              <i class="fas fas fa-money-check-alt fa-2x text-warning"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+ 
+
+   
+  </div>
+
+  <!--Row-->
+  <div class="card">
+    <div class="card-header">
+      <h6 class="m-0 card-text font-weight-bold text-gradient-primary text-center text-uppercase">quantity of product in store before and after sales</h6>
+    </div>
+    <!-- <hr> -->
+    <div class="card-body">
+      
+      {% include './barGraph1.html' %}
+    </div>
+  </div>
+  <!-- lineGraph -->
+  <div class="container mt-4 mb-5">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div>
+              <canvas id="myChart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <script>
+          const labels = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+          ];
+          
+
+
+          const data = {
+            labels: labels,
+            datasets: [{
+              label: 'Monthly sales',
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderWidth: 1.1,
+              data: ['{{january_sales_sum}}', '{{february_sales_sum}}', '{{march_sales_sum}}', '{{april_sales_sum}}', '{{may_sales_sum}}', '{{june_sales_sum}}', '{{july_sales_sum}}', '{{august_sales_sum}}', '{{september_sales_sum}}', '{{november_sales_sum}}','{{december_sales_sum}}' ],
+            }]
+          };
+        
+          const config = {
+            type: 'bar',
+            data: data,
+            options: {
+              borderColor:'rgb(255, 209, 132)',
+            }
+          };
+        </script>
+        <script>
+          const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+          );
+        </script>
+      </div>
+    </div>
+  </div>
+  <h6 class="m-0 font-weight-bold text-primary">Faida ya kila bidhaa kiujumla two y-axix(idadi ya bidha zilizouzika, Faida zilizotumika) </h6>
+  {% include './barGraph2.html' %}
+  <h6 class="m-0 font-weight-bold text-primary">Mapato na matumizi(Divegence graph)</h6>
+  {% include './barGraph3.html' %}
+  
+  <h6 class="m-0 font-weight-bold text-gradient-primary text-center">gharama ya kila bidhaa kiujumla two y-axix(idadi ya bidha, gharama zilizotumika)</h6>
+  {% include './barGraph4.html' %}
+
+  <!-- Modal Logout -->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to logout?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+          <a href="{% url 'storeApp:logoutPage' %}" class="btn btn-primary">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% else %}
+{% include './salesStatusBar.html' %}
+{% include './salesDatatables.html' %}
+
+{% endif %}
+
+{% endblock %}
