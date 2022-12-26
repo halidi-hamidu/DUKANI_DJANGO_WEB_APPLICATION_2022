@@ -103,88 +103,71 @@
    
   </div>
 
-  <!--Row-->
-  <div class="card">
-    <div class="card-header">
-      <h6 class="m-0 card-text font-weight-bold text-gradient-primary text-center text-uppercase">quantity of product in store before and after sales</h6>
-    </div>
-    <!-- <hr> -->
-    <div class="card-body">
-      
-      {% include './barGraph1.html' %}
-    </div>
-  </div>
-  <!-- lineGraph -->
-  <div class="container mt-4 mb-5">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body">
-            <div>
-              <canvas id="myChart"></canvas>
-            </div>
+ <!-- lineGraph -->
+ <div class="container mt-4 mb-5">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <h4 class="text-center">monthly sales within a year <script> document.write(new Date().getFullYear()); </script></h4>
+        <div class="card-body">
+          <div>
+            <canvas id="myChart"></canvas>
           </div>
         </div>
-        
-        <script>
-          const labels = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December'
-          ];
-          
-
-
-          const data = {
-            labels: labels,
-            datasets: [{
-              label: 'Monthly sales',
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderWidth: 1.1,
-              data: ['{{january_sales_sum}}', '{{february_sales_sum}}', '{{march_sales_sum}}', '{{april_sales_sum}}', '{{may_sales_sum}}', '{{june_sales_sum}}', '{{july_sales_sum}}', '{{august_sales_sum}}', '{{september_sales_sum}}', '{{november_sales_sum}}','{{december_sales_sum}}' ],
-            }]
-          };
-        
-          const config = {
-            type: 'bar',
-            data: data,
-            options: {
-              borderColor:'rgb(255, 209, 132)',
-            }
-          };
-        </script>
-        <script>
-          const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-          );
-        </script>
       </div>
+      
+      <script>
+        const labels = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'
+        ];
+        
+
+
+        const data = {
+          labels: labels,
+          datasets: [{
+            label: 'Monthly sales',
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+          ],
+          borderWidth: 1.1,
+            data: ['{{january_sales_sum}}', '{{february_sales_sum}}', '{{march_sales_sum}}', '{{april_sales_sum}}', '{{may_sales_sum}}', '{{june_sales_sum}}', '{{july_sales_sum}}', '{{august_sales_sum}}', '{{september_sales_sum}}', '{{november_sales_sum}}','{{december_sales_sum}}' ],
+          }]
+        };
+      
+        const config = {
+          type: 'bar',
+          data: data,
+          options: {
+            borderColor:'rgb(255, 209, 132)',
+          }
+        };
+      </script>
+      <script>
+        const myChart = new Chart(
+          document.getElementById('myChart'),
+          config
+        );
+      </script>
     </div>
   </div>
-  <h6 class="m-0 font-weight-bold text-primary">Faida ya kila bidhaa kiujumla two y-axix(idadi ya bidha zilizouzika, Faida zilizotumika) </h6>
-  {% include './barGraph2.html' %}
-  <h6 class="m-0 font-weight-bold text-primary">Mapato na matumizi(Divegence graph)</h6>
-  {% include './barGraph3.html' %}
-  
-  <h6 class="m-0 font-weight-bold text-gradient-primary text-center">gharama ya kila bidhaa kiujumla two y-axix(idadi ya bidha, gharama zilizotumika)</h6>
-  {% include './barGraph4.html' %}
+</div>
 
   <!-- Modal Logout -->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
